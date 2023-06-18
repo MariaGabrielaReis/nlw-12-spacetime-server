@@ -48,7 +48,30 @@ export async function projectsRoutes(app: FastifyInstance) {
     return project;
   });
 
-  app.put("/projects/:id", async () => {});
+  app.put("/projects/:id", async request => {
+    const paramsSchema = z.object({
+      id: z.string().uuid(),
+    });
+    const { id } = paramsSchema.parse(request.params);
+
+    const bodySchema = z.object({
+      content: z.string(),
+      coverUrl: z.string(),
+      isPublic: z.coerce.boolean().default(false),
+    });
+    const { content, coverUrl, isPublic } = bodySchema.parse(request.body);
+
+    const project = await prisma.project.update({
+      where: { id },
+      data: {
+        content,
+        coverUrl,
+        isPublic,
+      },
+    });
+
+    return project;
+  });
 
   app.delete("/projects/:id", async request => {
     const paramsSchema = z.object({

@@ -16,14 +16,10 @@ export async function projectsRoutes(app: FastifyInstance) {
   });
 
   app.get("/projects/:id", async request => {
-    const paramsSchema = z.object({
-      id: z.string().uuid(),
-    });
+    const paramsSchema = z.object({ id: z.string().uuid() });
     const { id } = paramsSchema.parse(request.params);
 
-    const project = await prisma.project.findUniqueOrThrow({
-      where: { id },
-    });
+    const project = await prisma.project.findUniqueOrThrow({ where: { id } });
 
     return project;
   });
@@ -49,9 +45,7 @@ export async function projectsRoutes(app: FastifyInstance) {
   });
 
   app.put("/projects/:id", async request => {
-    const paramsSchema = z.object({
-      id: z.string().uuid(),
-    });
+    const paramsSchema = z.object({ id: z.string().uuid() });
     const { id } = paramsSchema.parse(request.params);
 
     const bodySchema = z.object({
@@ -63,24 +57,16 @@ export async function projectsRoutes(app: FastifyInstance) {
 
     const project = await prisma.project.update({
       where: { id },
-      data: {
-        content,
-        coverUrl,
-        isPublic,
-      },
+      data: { content, coverUrl, isPublic },
     });
 
     return project;
   });
 
   app.delete("/projects/:id", async request => {
-    const paramsSchema = z.object({
-      id: z.string().uuid(),
-    });
+    const paramsSchema = z.object({ id: z.string().uuid() });
     const { id } = paramsSchema.parse(request.params);
 
-    await prisma.project.delete({
-      where: { id },
-    });
+    await prisma.project.delete({ where: { id } });
   });
 }

@@ -1,3 +1,5 @@
+<div align="center"> <img src="https://github.com/MariaGabrielaReis/nlw-12-spacetime-server/assets/69374340/c5cf466a-9b07-46ab-ac9c-02273bf7f88f" alt="Banner com o nome do projeto" /> </div>
+
 API para a cápsula do tempo de projetos, uma aplicação que permite criar uma linha do tempo de todos os seus projetos, com descrição, imagens e vídeos! <br>
 **Aplicação construída no evento Next Level Week: Spacetime, promovido pela Rocketseat** 🚀
 > :hammer_and_wrench: Tecnologias e ferramentas: **TypeScript, Node, Fastify, Insomnia**
@@ -23,4 +25,3 @@ $ yarn dev
 Em breve...
 
 [![image](https://img.shields.io/badge/✨%20Maria%20Gabriela%20Reis,%202023-LinkedIn-0D9488?style=flat-square)](https://www.linkedin.com/in/mariagabrielareis/)
-

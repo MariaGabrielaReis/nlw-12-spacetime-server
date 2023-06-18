@@ -28,7 +28,25 @@ export async function projectsRoutes(app: FastifyInstance) {
     return project;
   });
 
-  app.post("/projects/:id", async () => {});
+  app.post("/projects", async request => {
+    const bodySchema = z.object({
+      content: z.string(),
+      coverUrl: z.string(),
+      isPublic: z.coerce.boolean().default(false),
+    });
+    const { content, coverUrl, isPublic } = bodySchema.parse(request.body);
+
+    const project = await prisma.project.create({
+      data: {
+        content,
+        coverUrl,
+        isPublic,
+        userId: "7dcdb872-2550-49e1-8e98-7283553bb75a",
+      },
+    });
+
+    return project;
+  });
 
   app.put("/projects/:id", async () => {});
 

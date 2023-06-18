@@ -50,5 +50,14 @@ export async function projectsRoutes(app: FastifyInstance) {
 
   app.put("/projects/:id", async () => {});
 
-  app.delete("/projects/:id", async () => {});
+  app.delete("/projects/:id", async request => {
+    const paramsSchema = z.object({
+      id: z.string().uuid(),
+    });
+    const { id } = paramsSchema.parse(request.params);
+
+    await prisma.project.delete({
+      where: { id },
+    });
+  });
 }

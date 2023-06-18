@@ -1,4 +1,5 @@
 import { FastifyInstance } from "fastify";
+import { z } from "zod";
 import { prisma } from "../lib/prisma";
 
 export async function projectsRoutes(app: FastifyInstance) {
@@ -14,7 +15,18 @@ export async function projectsRoutes(app: FastifyInstance) {
     }));
   });
 
-  app.get("/projects/:id", async () => {});
+  app.get("/projects/:id", async request => {
+    const paramsSchema = z.object({
+      id: z.string().uuid(),
+    });
+    const { id } = paramsSchema.parse(request.params);
+
+    const project = await prisma.project.findUniqueOrThrow({
+      where: { id },
+    });
+
+    return project;
+  });
 
   app.post("/projects/:id", async () => {});
 
